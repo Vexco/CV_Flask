@@ -1,5 +1,7 @@
-from flask import Flask, render_template, jsonify
-import json
+from flask import Flask, render_template_string, render_template, jsonify
+from flask import Flask, render_template, request, redirect
+from flask import json
+from urllib.request import urlopen
 import sqlite3
 
 app = Flask(__name__) #creating flask app name
@@ -24,17 +26,40 @@ def resume_2():
 def resume_template():
     return render_template("resume_template.html")
 
-@app.route('/lecture/')
-def read_bdd():
-    conn = get_db_connection()
-    posts = conn.execute('SELECT * FROM livres').fetchall()
+# Création d'une nouvelle route pour la lecture de la BDD
+@app.route("/consultation/")
+def ReadBDD():
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM clients;')
+    data = cursor.fetchall()
     conn.close()
+    
+    # Rendre le template HTML et transmettre les données
+    return render_template('read_data.html', data=data)
 
-    # Convertit la liste de livre en un format JSON
-    json_posts = [{'id': post['id'], 'title': post['title'], 'content': post['auteur']} for post in posts]
+def ajouter_client():
+    if request.method == 'POST':
+        # Récupérer les données du formulaire
+        nom = request.form['nom']
+        prenom = request.form['prenom']
+        adresse = request.form['adresse']
 
-    # Renvoie la réponse JSON
-    return json.jsonify(posts=json_posts)
+        # Insérer les données dans la base de données (ici, je suppose que tu as une table 'clients')
+        conn = sqlite3.connect('database.db')
+        cursor = conn.cursor()
+        if conn is not None:
+            cursor.execute('INSERT INTO clients (nom, prenom, adresse) VALUES (?, ?, ?)', (nom, prenom, adresse))
+            conn.commit()
+            conn.close()
+        else:
+            return 'Erreur de connexion à la base de données'
+
+        # Rediriger vers la page de consultation des clients après l'ajout
+        return redirect(url_for('/'))
+
+    # Si la méthode est GET, simplement rendre le template du formulaire
+    return render_template('create_data.html')
 
 if(__name__ == "__main__"):
     app.run()
