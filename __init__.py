@@ -5,7 +5,7 @@ from urllib.request import urlopen
 import sqlite3
 
 app = Flask(__name__) #creating flask app name
-db = "./www/flask/database.db"
+db = "database.db"
 
 def get_db_connection():
     connection = sqlite3.connect(db)
