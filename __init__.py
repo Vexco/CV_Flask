@@ -41,10 +41,10 @@ def ReadBDD():
 @app.route("/ajouter_message/", methods=['GET', 'POST'])
 def ajouter_message():
     if request.method == 'POST':
-        return request
         # Récupérer les données du formulaire
         email = request.form['email']
         message = request.form['msg']
+        return { email, message }
 
         # Insérer les données dans la base de données (ici, je suppose que tu as une table 'clients')
         conn = sqlite3.connect('database.db')
