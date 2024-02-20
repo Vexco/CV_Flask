@@ -41,6 +41,7 @@ def ReadBDD():
 @app.route("/ajouter_message/", methods=['GET', 'POST'])
 def ajouter_message():
     if request.method == 'POST':
+        return request
         # Récupérer les données du formulaire
         email = request.form['email']
         message = request.form['msg']
