@@ -59,7 +59,7 @@ def ajouter_message():
         return redirect(url_for('/consultation/'))
 
     # Si la méthode est GET, simplement rendre le template du formulaire
-    return render_template('index.html')
+    return render_template('ajouter_message.html')
 
 if(__name__ == "__main__"):
     app.run()
