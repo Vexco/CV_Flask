@@ -38,7 +38,7 @@ def ReadBDD():
     # Rendre le template HTML et transmettre les données
     return render_template('read_data.html', data=data)
 
-@app.route("/ajouter_message", methods=['GET', 'POST'])
+@app.route("/ajouter_message/", methods=['GET', 'POST'])
 def ajouter_message():
     if request.method == 'POST':
         # Récupérer les données du formulaire
