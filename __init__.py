@@ -44,12 +44,12 @@ def ajouter_message():
         # Récupérer les données du formulaire
         email = request.form['email']
         message = request.form['msg']
-        return message
         
         # Insérer les données dans la base de données (ici, je suppose que tu as une table 'clients')
         try: 
-            cursor.execute('INSERT INTO message (email, msg) VALUES (?, ?)', (email, message))
             conn = sqlite3.connect('database.db')
+            return conn
+            cursor.execute('INSERT INTO message (email, msg) VALUES (?, ?)', (email, message))
             cursor = conn.cursor()
             conn.commit()
         except sqlite3.Error as e:
