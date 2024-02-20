@@ -44,7 +44,7 @@ def ajouter_message():
         # Récupérer les données du formulaire
         email = request.form['email']
         message = request.form['msg']
-        return email
+        return message
         
         # Insérer les données dans la base de données (ici, je suppose que tu as une table 'clients')
         try: 
