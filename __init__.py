@@ -38,7 +38,7 @@ def ReadBDD():
     # Rendre le template HTML et transmettre les données
     return render_template('read_data.html', data=data)
 
-@app.route("/resume_2/", methods=['GET', 'POST'])
+@app.route("/ajouter_message", methods=['GET', 'POST'])
 def ajouter_message():
     if request.method == 'POST':
         # Récupérer les données du formulaire
@@ -59,7 +59,7 @@ def ajouter_message():
         return redirect(url_for('/consultation/'))
 
     # Si la méthode est GET, simplement rendre le template du formulaire
-    return render_template('create_data.html')
+    return render_template('index.html')
 
 if(__name__ == "__main__"):
     app.run()

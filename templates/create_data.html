@@ -7,17 +7,14 @@
 </head>
 <body>
 
-    <h2>Ajouter un nouveau client</h2>
+    <h2>Ajouter un nouveau message</h2>
 
-    <form action="/ajouter_client" method="post">
-        <label for="nom">Nom :</label>
-        <input type="text" id="nom" name="nom" required><br>
+    <form action="/ajouter_message" method="post">
+        <label for="email">Email :</label>
+        <input type="text" id="email" name="email" required><br>
 
-        <label for="prenom">Prénom :</label>
-        <input type="text" id="prenom" name="prenom" required><br>
-
-        <label for="adresse">Adresse :</label>
-        <input type="text" id="adresse" name="adresse" required><br>
+        <label for="msg">Message :</label>
+        <input type="text" id="msg" name="msg" required><br>
 
         <input type="submit" value="Ajouter">
     </form>
