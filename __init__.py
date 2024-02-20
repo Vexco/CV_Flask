@@ -24,7 +24,7 @@ def get_db_connection():
     connection = sqlite3.connect('database.db')
     return connection
 
-@app.route('/lecture')
+@app.route('/lecture/')
 def ReadBDD():
     conn = get_db_connection()
     posts = conn.execute('SELECT * FROM livres').fetchall()
