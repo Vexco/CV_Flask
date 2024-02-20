@@ -5,9 +5,10 @@ from urllib.request import urlopen
 import sqlite3
 
 app = Flask(__name__) #creating flask app name
+db = "./www/flask/database.db"
 
 def get_db_connection():
-    connection = sqlite3.connect('database.db')
+    connection = sqlite3.connect(db)
     return connection
 
 @app.route('/')
@@ -29,7 +30,7 @@ def resume_template():
 # Création d'une nouvelle route pour la lecture de la BDD
 @app.route("/consultation/")
 def ReadBDD():
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect(db)
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM message;')
     data = cursor.fetchall()
@@ -47,8 +48,7 @@ def ajouter_message():
         
         # Insérer les données dans la base de données (ici, je suppose que tu as une table 'clients')
         try: 
-            conn = sqlite3.connect('database.db')
-            return conn
+            conn = sqlite3.connect(db)
             cursor.execute('INSERT INTO message (email, msg) VALUES (?, ?)', (email, message))
             cursor = conn.cursor()
             conn.commit()
