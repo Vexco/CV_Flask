@@ -4,6 +4,10 @@ import sqlite3
 
 app = Flask(__name__) #creating flask app name
 
+def get_db_connection():
+    connection = sqlite3.connect('database.db')
+    return connection
+
 @app.route('/')
 def home():
     return render_template("resume_2.html")
@@ -20,12 +24,8 @@ def resume_2():
 def resume_template():
     return render_template("resume_template.html")
 
-def get_db_connection():
-    connection = sqlite3.connect('database.db')
-    return connection
-
 @app.route('/lecture/')
-def ReadBDD():
+def read_bdd():
     conn = get_db_connection()
     posts = conn.execute('SELECT * FROM livres').fetchall()
     conn.close()
@@ -34,7 +34,7 @@ def ReadBDD():
     json_posts = [{'id': post['id'], 'title': post['title'], 'content': post['auteur']} for post in posts]
 
     # Renvoie la réponse JSON
-    return jsonify(posts=json_posts)
+    return json.jsonify(posts=json_posts)
 
 if(__name__ == "__main__"):
     app.run()
