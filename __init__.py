@@ -20,6 +20,10 @@ def resume_2():
 def resume_template():
     return render_template("resume_template.html")
 
+def get_db_connection():
+    connection = sqlite3.connect('database.db')
+    return connection
+
 @app.route('/lecture/')
 def ReadBDD():
     conn = get_db_connection()
