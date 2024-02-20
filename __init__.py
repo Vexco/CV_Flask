@@ -46,14 +46,15 @@ def ajouter_message():
         message = request.form['msg']
         
         # Insérer les données dans la base de données (ici, je suppose que tu as une table 'clients')
-        conn = sqlite3.connect('database.db')
-        cursor = conn.cursor()
-        if conn is not None:
+        try: 
             cursor.execute('INSERT INTO message (email, msg) VALUES (?, ?)', (email, message))
+            conn = sqlite3.connect('database.db')
+            cursor = conn.cursor()
             conn.commit()
+        except sqlite3.Error as e:
+            return f'Error connecting to database: {e}'
+        finally:
             conn.close()
-        else:
-            return 'Erreur de connexion à la base de données'
 
         # Rediriger vers la page de consultation des clients après l'ajout
         return redirect(url_for('/consultation/'))
