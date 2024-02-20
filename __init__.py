@@ -38,25 +38,25 @@ def ReadBDD():
     # Rendre le template HTML et transmettre les données
     return render_template('read_data.html', data=data)
 
+@app.route("/resume_2/", methods=['GET', 'POST'])
 def ajouter_message():
     if request.method == 'POST':
         # Récupérer les données du formulaire
-        nom = request.form['nom']
-        prenom = request.form['prenom']
-        adresse = request.form['adresse']
+        email = request.form['email']
+        message = request.form['msg']
 
         # Insérer les données dans la base de données (ici, je suppose que tu as une table 'clients')
         conn = sqlite3.connect('database.db')
         cursor = conn.cursor()
         if conn is not None:
-            cursor.execute('INSERT INTO clients (nom, prenom, adresse) VALUES (?, ?, ?)', (nom, prenom, adresse))
+            cursor.execute('INSERT INTO message (email, msg) VALUES (?, ?)', (email, message))
             conn.commit()
             conn.close()
         else:
             return 'Erreur de connexion à la base de données'
 
         # Rediriger vers la page de consultation des clients après l'ajout
-        return redirect(url_for('/'))
+        return redirect(url_for('/consultation/'))
 
     # Si la méthode est GET, simplement rendre le template du formulaire
     return render_template('create_data.html')

@@ -331,15 +331,15 @@
                         <h4>Envoyer un message</h4>   
                         <a class="close" href="#">&times;</a>
 
-                        <form class="needs-validation" novalidate>
+                        <form action="/ajouter_message" method="post" class="needs-validation" novalidate>
                             <div class="form-row form-group">
                                 <div class="col-md-4">
-                                    <label for="name">Mail address:</label>
-                                    <input type="text" class="form-control" id="name" placeholder="Enter your Mail address" required>
+                                    <label for="email">Mail address:</label>
+                                    <input type="text" class="form-control" id="email" placeholder="Enter your Mail address" required>
                                     <div class="invalid-feedback"> Enter your Mail address.</div>
                                 </div>   
                                 <div class="col-md-4">
-                                    <label for="dob">Message:</label>
+                                    <label for="msg">Message:</label>
                                     <input type="text" class="form-control" id="msg" placeholder="Enter your message" required>
                                     <div class="invalid-feedback"> Enter your message</div>
                                 </div>
