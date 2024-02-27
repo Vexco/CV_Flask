@@ -30,7 +30,7 @@ def resume_template():
 # Création d'une nouvelle route pour la lecture de la BDD
 @app.route("/consultation/")
 def ReadBDD():
-    conn = sqlite3.connect(db)
+    conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM message;')
     data = cursor.fetchall()
@@ -48,9 +48,9 @@ def ajouter_message():
         
         # Insérer les données dans la base de données (ici, je suppose que tu as une table 'clients')
         try: 
-            conn = sqlite3.connect(db)
-            cursor.execute('INSERT INTO message (email, msg) VALUES (?, ?)', (email, message))
+            conn = get_db_connection()
             cursor = conn.cursor()
+            cursor.execute('INSERT INTO message (email, msg) VALUES (?, ?)', (email, message))
             conn.commit()
         except sqlite3.Error as e:
             return f'Error connecting to database: {e}'
