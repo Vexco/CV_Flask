@@ -27,9 +27,17 @@ def resume_2():
 def resume_template():
     return render_template("resume_template.html")
 
+app.secret_key = "c30e18ff-d7e8-4435-a239-65b85f8905a1"
+
+def est_authentifie():
+        return session.get('authentifie')
+
 # Création d'une nouvelle route pour la lecture de la BDD
 @app.route("/consultation/")
 def readbdd():
+    if not est_authentifie():
+        return redirect(url_for('authentification'))
+    
     conn = sqlite3.connect("database.db")
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM message;')
@@ -62,6 +70,20 @@ def ajouter_message():
         print("Une erreur est survenue: ", str(e))
         print(traceback.format_exc())
         return str(e), 500
+    
+@app.route('/authentification', methods=['GET', 'POST'])
+def authentification():
+    if request.method == 'POST':
+        # Vérifier les identifiants
+        if request.form['username'] == 'admin' and request.form['password'] == 'password': # password à cacher par la suite
+            session['authentifie'] = True
+            # Rediriger vers la route lecture après une authentification réussie
+            return redirect(url_for('readbdd'))
+        else:
+            # Afficher un message d'erreur si les identifiants sont incorrects
+            return render_template('formulaire_authentification.html', error=True)
+
+    return render_template('formulaire_authentification.html', error=False)
 
 if(__name__ == "__main__"):
     app.run()
