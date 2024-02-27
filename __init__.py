@@ -29,7 +29,7 @@ def resume_template():
 
 # Création d'une nouvelle route pour la lecture de la BDD
 @app.route("/consultation/")
-def ReadBDD():
+def readbdd():
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM message;')
