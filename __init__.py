@@ -28,7 +28,7 @@ def resume_template():
     return render_template("resume_template.html")
 
 # Création d'une nouvelle route pour la lecture de la BDD
-@app.route("/consultation")
+@app.route("/consultation/")
 def readbdd():
     conn = sqlite3.connect("database.db")
     cursor = conn.cursor()
